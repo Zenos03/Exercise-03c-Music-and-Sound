@@ -22,11 +22,16 @@ func _ready():
 	pause_mode = Node.PAUSE_MODE_PROCESS
 	randomize()
 	VP = get_viewport().size
-	var _signal = get_tree().get_root().connect("size_changed",self,"_resize")
+	var _signal = get_tree().get_root().connect("size_changed", self, "_resize")
 	reset()
-
+	
 func _physics_process(_delta):
-	pass
+	if color_rotate >= 0:
+		color_rotate -= color_rotate_index
+		color_rotate_index *= 1.05
+	else:
+		color_rotate_index = 0.1
+	sway_index += sway_period
 
 func _unhandled_input(event):
 	if event.is_action_pressed("menu"):
